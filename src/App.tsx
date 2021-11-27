@@ -8,7 +8,6 @@ function App() {
       <Helmet titleTemplate="%s - AT" defaultTitle="Hienhhcc Todo">
         <meta name="description" content="Todo application" />
       </Helmet>
-      <h1>Hello</h1>
       <AppLayout />
       <GlobalStyle />
     </>

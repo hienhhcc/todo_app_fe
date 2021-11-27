@@ -1,4 +1,4 @@
-import { Login, Register, TodoList } from '..';
+import { LoginPage, Register, TodoList } from '..';
 
 export const privateRoutes = [
   {
@@ -11,7 +11,7 @@ export const privateRoutes = [
 export const publicRoutes = [
   {
     path: '/login',
-    component: Login,
+    component: LoginPage,
     key: 'login',
   },
   {

@@ -1,15 +1,38 @@
-import { Routes } from 'react-router';
-import { PrivateLayout } from './Private/Layout';
-import PrivateRoute from './Private/Route';
-import { PublicLayout } from './Public/Layout';
-import PublicRoute from './Public/Route';
+import { Route, Routes } from 'react-router';
+import { LoginPage, Register, TodoList } from '..';
 
-import { privateRoutes, publicRoutes } from './route';
+import { PrivateLayout } from './Private/Layout';
+import { PublicLayout } from './Public/Layout';
 
 const AppLayout = () => (
   <>
-    <h1>Hello</h1>
     <Routes>
+      <Route
+        path="/login"
+        element={
+          <PublicLayout>
+            <LoginPage />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicLayout>
+            <Register />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/todos"
+        element={
+          <PrivateLayout>
+            <TodoList />
+          </PrivateLayout>
+        }
+      />
+    </Routes>
+    {/* <Routes>
       {publicRoutes.map((route) => (
         <PublicRoute
           key={route.key}
@@ -26,7 +49,7 @@ const AppLayout = () => (
           layout={PrivateLayout}
         />
       ))}
-    </Routes>
+    </Routes> */}
   </>
 );
 

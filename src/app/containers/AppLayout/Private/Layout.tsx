@@ -3,7 +3,7 @@ import { StyledContent } from '../styles';
 import PrivateHeader from './Header';
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const PrivateLayout = ({ children }: Props) => (

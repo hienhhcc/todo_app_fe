@@ -1,5 +1,5 @@
 const TodoList = () => {
-  <h1>TodoList</h1>;
+  return <h1>TodoList</h1>;
 };
 
 export default TodoList;

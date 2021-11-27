@@ -1,5 +1,5 @@
-import Login from './Login';
+import LoginPage from './Login';
 import Register from './Register';
 import TodoList from './TodoList';
 
-export { Login, Register, TodoList };
+export { LoginPage, Register, TodoList };
