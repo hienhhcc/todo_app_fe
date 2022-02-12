@@ -1,56 +1,35 @@
 import { Route, Routes } from 'react-router';
-import { LoginPage, Register, TodoList } from '..';
 
-import { PrivateLayout } from './Private/Layout';
-import { PublicLayout } from './Public/Layout';
+import { LoginPage, Register, TodoList, Home, Layout, NotFound, Logout } from '..';
 
-const AppLayout = () => (
-  <>
+const AppLayout = () => {
+  let isAuthenticated = false;
+
+  let routes = (
     <Routes>
-      <Route
-        path="/login"
-        element={
-          <PublicLayout>
-            <LoginPage />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <PublicLayout>
-            <Register />
-          </PublicLayout>
-        }
-      />
-      <Route
-        path="/todos"
-        element={
-          <PrivateLayout>
-            <TodoList />
-          </PrivateLayout>
-        }
-      />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
-    {/* <Routes>
-      {publicRoutes.map((route) => (
-        <PublicRoute
-          key={route.key}
-          path={route.path}
-          component={route.component}
-          layout={PublicLayout}
-        />
-      ))}
-      {privateRoutes.map((route) => (
-        <PrivateRoute
-          key={route.key}
-          path={route.path}
-          component={route.component}
-          layout={PrivateLayout}
-        />
-      ))}
-    </Routes> */}
-  </>
-);
+  );
+
+  if (isAuthenticated) {
+    routes = (
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/todos" element={<TodoList />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    );
+  }
+
+  return routes;
+};
 
 export default AppLayout;
