@@ -12,7 +12,7 @@ const initialState: {
 };
 
 //* Register thunk
-export const register = createAsyncThunk(
+export const registerThunk = createAsyncThunk(
   'register/register',
   async (userCres: any) => {
     const response = await axios.post(
@@ -28,23 +28,28 @@ export const register = createAsyncThunk(
 export const registerSlice = createSlice({
   initialState,
   name: 'auth',
-  reducers: {},
+  reducers: {
+    reset(state, action: any) {
+      state.status = '';
+      state.error = null;
+    },
+  },
   extraReducers(builder) {
     builder
-      .addCase(register.pending, (state, action) => {
+      .addCase(registerThunk.pending, (state, action) => {
         state.status = EActionStatus.PENDING;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(registerThunk.fulfilled, (state, action) => {
         console.log('SUCCESS');
         state.status = EActionStatus.SUCCESS;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(registerThunk.rejected, (state, action) => {
         state.status = EActionStatus.FAILED;
         state.error = action.error.message;
       });
   },
 });
 
-export const {} = registerSlice.actions;
+export const { reset } = registerSlice.actions;
 
 export default registerSlice.reducer;

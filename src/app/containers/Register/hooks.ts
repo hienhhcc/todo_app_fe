@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { EActionStatus } from '../../../utils/constants';
 
 import { selectRegisterError, selectRegisterStatus } from './selectors';
-import { register } from './slice';
+import { registerThunk, reset } from './slice';
 
 const useHooks = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const useHooks = () => {
       const { username, password } = data;
 
       //TODO Gọi api register
-      dispatch(register({ username, password }));
+      dispatch(registerThunk({ username, password }));
     },
     [dispatch]
   );
@@ -27,9 +27,13 @@ const useHooks = () => {
   //TODO Chuyển hướng người dùng về trang login nếu đăng ký thành công
   useEffect(() => {
     if (status === EActionStatus.SUCCESS) {
+      //TODO Reset register state
+      dispatch(reset({}));
+
+      //TODO Chuyển hướng người dùng
       navigate('/login', { state: { from: 'register' } });
     }
-  }, [status, navigate]);
+  }, [status, navigate, dispatch]);
 
   return {
     handlers: { onSubmitRegister },
