@@ -1,6 +1,14 @@
 import { Route, Routes } from 'react-router';
 
-import { LoginPage, Register, TodoList, Home, Layout, NotFound, Logout } from '..';
+import {
+  LoginPage,
+  Register,
+  TodoList,
+  Home,
+  Layout,
+  NotFound,
+  Logout,
+} from '..';
 
 const AppLayout = () => {
   let isAuthenticated = false;

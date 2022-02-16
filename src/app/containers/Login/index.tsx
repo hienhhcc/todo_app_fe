@@ -8,7 +8,7 @@ import { StyledDiv, StyledInput, StyledForm } from './styles';
 
 const LoginPage = () => {
   const {
-    register,
+    register: registerForm,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -16,8 +16,8 @@ const LoginPage = () => {
     criteriaMode: 'all',
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmitLogin = async (data: any) => {
+    
   };
 
   return (
@@ -25,14 +25,14 @@ const LoginPage = () => {
       <Typography variant="h4" component="h2" sx={{ textAlign: 'center' }}>
         Login
       </Typography>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm onSubmit={handleSubmit(onSubmitLogin)}>
         <StyledInput>
           <Person className="icon" color="action" fontSize="small" />
           <input
             type="text"
             className="input"
             placeholder="Username"
-            {...register('username', {
+            {...registerForm('username', {
               required: 'Username is required.',
               minLength: {
                 value: 8,
@@ -63,7 +63,7 @@ const LoginPage = () => {
             type="password"
             className="input"
             placeholder="Password"
-            {...register('password', {
+            {...registerForm('password', {
               required: 'Password is required.',
               minLength: {
                 value: 8,
