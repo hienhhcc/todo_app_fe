@@ -1,14 +1,6 @@
 import { Route, Routes } from 'react-router';
 
-import {
-  LoginPage,
-  Register,
-  TodoList,
-  Home,
-  Layout,
-  NotFound,
-  Logout,
-} from '..';
+import { LoginPage, Register, Todos, Home, Layout, NotFound, Logout } from '..';
 import useHooks from './hooks';
 
 const AppLayout = () => {
@@ -32,7 +24,7 @@ const AppLayout = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/todos" element={<TodoList />} />
+          <Route path="/todos" element={<Todos />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />

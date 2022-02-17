@@ -1,9 +1,9 @@
-import { LoginPage, Register, TodoList } from '..';
+import { LoginPage, Register, Todos } from '..';
 
 export const privateRoutes = [
   {
     path: '/todos',
-    component: TodoList,
+    component: Todos,
     key: 'profile',
   },
 ];
