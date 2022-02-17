@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
+import useHooks from './hooks';
 
 import { StyledDiv } from './styles';
 
 const Home = () => {
-  let isAuthenticated = false;
+  const { handlers, selectors } = useHooks();
+  const {} = handlers;
+  const { isAuthenticated } = selectors;
 
   let content = (
     <StyledDiv>

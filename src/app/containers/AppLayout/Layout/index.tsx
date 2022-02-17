@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { StyledContent } from '../styles';
-import Header from './Header';
+import Header from './Header/index';
 
 interface Props {
   children?: React.ReactChild;

@@ -1,8 +1,13 @@
 import { Avatar, Container, Stack } from '@mui/material';
 
-import { StyledHeader, StyledLink, StyledNavigationItem } from '../styles';
+import { StyledHeader, StyledLink, StyledNavigationItem } from '../../styles';
+import useHooks from './hooks';
 
 const Header = () => {
+  const { handlers, selectors } = useHooks();
+
+  const { isAuthenticated } = selectors;
+
   return (
     <StyledHeader>
       <Container maxWidth="lg" className="height">
@@ -28,10 +33,19 @@ const Header = () => {
           </StyledLink>
           <div>
             <Stack direction="row" spacing="2">
-              <StyledNavigationItem to="/login">Login</StyledNavigationItem>
-              <StyledNavigationItem to="/register">
-                Register
-              </StyledNavigationItem>
+              {!isAuthenticated ? (
+                <>
+                  <StyledNavigationItem to="/login">Login</StyledNavigationItem>
+                  <StyledNavigationItem to="/register">
+                    Register
+                  </StyledNavigationItem>
+                </>
+              ) : (
+                <>
+                  <StyledNavigationItem to="/">Home</StyledNavigationItem>
+                  <StyledNavigationItem to="/todos">Todos</StyledNavigationItem>
+                </>
+              )}
             </Stack>
           </div>
         </Stack>

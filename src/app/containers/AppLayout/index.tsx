@@ -9,9 +9,12 @@ import {
   NotFound,
   Logout,
 } from '..';
+import useHooks from './hooks';
 
 const AppLayout = () => {
-  let isAuthenticated = false;
+  const { handlers, selectors } = useHooks();
+
+  const { isAuthenticated } = selectors;
 
   let routes = (
     <Routes>
@@ -30,6 +33,7 @@ const AppLayout = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/todos" element={<TodoList />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
         </Route>

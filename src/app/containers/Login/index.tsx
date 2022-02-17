@@ -22,7 +22,7 @@ const LoginPage = () => {
   const location = useLocation();
 
   const { onSubmitLogin } = handlers;
-  const { status } = selectors;
+  const { status, error } = selectors;
 
   let content = (
     <StyledDiv>
@@ -36,62 +36,18 @@ const LoginPage = () => {
             type="text"
             className="input"
             placeholder="Username"
-            {...registerForm('username', {
-              required: 'Username is required.',
-              minLength: {
-                value: 8,
-                message: 'Username must exceed 8 characters',
-              },
-              maxLength: {
-                value: 32,
-                message: 'Username must not exceed 32 characters',
-              },
-            })}
+            {...registerForm('username')}
           />
         </StyledInput>
-        <ErrorMessage
-          errors={errors}
-          name="username"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? Object.entries(messages).map(([type, message]) => (
-                  <p key={type}>{message}</p>
-                ))
-              : null;
-          }}
-        />
         <StyledInput>
           <VpnKey className="icon" color="action" fontSize="small" />
           <input
             type="password"
             className="input"
             placeholder="Password"
-            {...registerForm('password', {
-              required: 'Password is required.',
-              minLength: {
-                value: 8,
-                message: 'Password must exceed 8 characters',
-              },
-              maxLength: {
-                value: 32,
-                message: 'Password must not exceed 32 characters',
-              },
-            })}
+            {...registerForm('password')}
           />
         </StyledInput>
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? Object.entries(messages).map(([type, message]) => (
-                  <p key={type}>{message}</p>
-                ))
-              : null;
-          }}
-        />
 
         <Button
           startIcon={<Login />}
@@ -129,62 +85,19 @@ const LoginPage = () => {
               type="text"
               className="input"
               placeholder="Username"
-              {...registerForm('username', {
-                required: 'Username is required.',
-                minLength: {
-                  value: 8,
-                  message: 'Username must exceed 8 characters',
-                },
-                maxLength: {
-                  value: 32,
-                  message: 'Username must not exceed 32 characters',
-                },
-              })}
+              {...registerForm('username')}
             />
           </StyledInput>
-          <ErrorMessage
-            errors={errors}
-            name="username"
-            render={({ messages }) => {
-              console.log('messages', messages);
-              return messages
-                ? Object.entries(messages).map(([type, message]) => (
-                    <p key={type}>{message}</p>
-                  ))
-                : null;
-            }}
-          />
+
           <StyledInput>
             <VpnKey className="icon" color="action" fontSize="small" />
             <input
               type="password"
               className="input"
               placeholder="Password"
-              {...registerForm('password', {
-                required: 'Password is required.',
-                minLength: {
-                  value: 8,
-                  message: 'Password must exceed 8 characters',
-                },
-                maxLength: {
-                  value: 32,
-                  message: 'Password must not exceed 32 characters',
-                },
-              })}
+              {...registerForm('password')}
             />
           </StyledInput>
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ messages }) => {
-              console.log('messages', messages);
-              return messages
-                ? Object.entries(messages).map(([type, message]) => (
-                    <p key={type}>{message}</p>
-                  ))
-                : null;
-            }}
-          />
 
           <Button
             startIcon={<Login />}
@@ -220,62 +133,19 @@ const LoginPage = () => {
               type="text"
               className="input"
               placeholder="Username"
-              {...registerForm('username', {
-                required: 'Username is required.',
-                minLength: {
-                  value: 8,
-                  message: 'Username must exceed 8 characters',
-                },
-                maxLength: {
-                  value: 32,
-                  message: 'Username must not exceed 32 characters',
-                },
-              })}
+              {...registerForm('username')}
             />
           </StyledInput>
-          <ErrorMessage
-            errors={errors}
-            name="username"
-            render={({ messages }) => {
-              console.log('messages', messages);
-              return messages
-                ? Object.entries(messages).map(([type, message]) => (
-                    <p key={type}>{message}</p>
-                  ))
-                : null;
-            }}
-          />
+
           <StyledInput>
             <VpnKey className="icon" color="action" fontSize="small" />
             <input
               type="password"
               className="input"
               placeholder="Password"
-              {...registerForm('password', {
-                required: 'Password is required.',
-                minLength: {
-                  value: 8,
-                  message: 'Password must exceed 8 characters',
-                },
-                maxLength: {
-                  value: 32,
-                  message: 'Password must not exceed 32 characters',
-                },
-              })}
+              {...registerForm('password')}
             />
           </StyledInput>
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ messages }) => {
-              console.log('messages', messages);
-              return messages
-                ? Object.entries(messages).map(([type, message]) => (
-                    <p key={type}>{message}</p>
-                  ))
-                : null;
-            }}
-          />
 
           <LoadingButton
             loading
@@ -298,93 +168,72 @@ const LoginPage = () => {
       </StyledDiv>
     );
   } else if (status === EActionStatus.FAILED) {
-    <StyledDiv>
-      <Typography variant="h4" component="h2" sx={{ textAlign: 'center' }}>
-        Login
-      </Typography>
-      <Alert severity="error">Something wrong happen!</Alert>
-      <StyledForm onSubmit={handleSubmit(onSubmitLogin)}>
-        <StyledInput>
-          <Person className="icon" color="action" fontSize="small" />
-          <input
-            type="text"
-            className="input"
-            placeholder="Username"
-            {...registerForm('username', {
-              required: 'Username is required.',
-              minLength: {
-                value: 8,
-                message: 'Username must exceed 8 characters',
-              },
-              maxLength: {
-                value: 32,
-                message: 'Username must not exceed 32 characters',
-              },
-            })}
-          />
-        </StyledInput>
-        <ErrorMessage
-          errors={errors}
-          name="username"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? Object.entries(messages).map(([type, message]) => (
-                  <p key={type}>{message}</p>
-                ))
-              : null;
-          }}
-        />
-        <StyledInput>
-          <VpnKey className="icon" color="action" fontSize="small" />
-          <input
-            type="password"
-            className="input"
-            placeholder="Password"
-            {...registerForm('password', {
-              required: 'Password is required.',
-              minLength: {
-                value: 8,
-                message: 'Password must exceed 8 characters',
-              },
-              maxLength: {
-                value: 32,
-                message: 'Password must not exceed 32 characters',
-              },
-            })}
-          />
-        </StyledInput>
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? Object.entries(messages).map(([type, message]) => (
-                  <p key={type}>{message}</p>
-                ))
-              : null;
-          }}
-        />
-
-        <Button
-          startIcon={<Login />}
-          variant="contained"
-          sx={{ mt: 1, width: '100%' }}
-          type="submit"
-        >
+    content = (
+      <StyledDiv>
+        <Typography variant="h4" component="h2" sx={{ textAlign: 'center' }}>
           Login
-        </Button>
-      </StyledForm>
-      <Typography
-        variant="caption"
-        gutterBottom
-        component="div"
-        sx={{ margin: 'auto', textAlign: 'center', marginTop: '0.5rem' }}
-      >
-        Don't have an account? Register <Link to="/register">now!</Link>
-      </Typography>
-    </StyledDiv>;
+        </Typography>
+        <Alert severity="error">{error}</Alert>
+        <StyledForm onSubmit={handleSubmit(onSubmitLogin)}>
+          <StyledInput>
+            <Person className="icon" color="action" fontSize="small" />
+            <input
+              type="text"
+              className="input"
+              placeholder="Username"
+              {...registerForm('username', {
+                required: 'Username is required.',
+                minLength: {
+                  value: 8,
+                  message: 'Username must exceed 8 characters',
+                },
+                maxLength: {
+                  value: 32,
+                  message: 'Username must not exceed 32 characters',
+                },
+              })}
+            />
+          </StyledInput>
+
+          <StyledInput>
+            <VpnKey className="icon" color="action" fontSize="small" />
+            <input
+              type="password"
+              className="input"
+              placeholder="Password"
+              {...registerForm('password', {
+                required: 'Password is required.',
+                minLength: {
+                  value: 8,
+                  message: 'Password must exceed 8 characters',
+                },
+                maxLength: {
+                  value: 32,
+                  message: 'Password must not exceed 32 characters',
+                },
+              })}
+            />
+          </StyledInput>
+
+          <Button
+            startIcon={<Login />}
+            variant="contained"
+            sx={{ mt: 1, width: '100%' }}
+            type="submit"
+          >
+            Login
+          </Button>
+        </StyledForm>
+        <Typography
+          variant="caption"
+          gutterBottom
+          component="div"
+          sx={{ margin: 'auto', textAlign: 'center', marginTop: '0.5rem' }}
+        >
+          Don't have an account? Register <Link to="/register">now!</Link>
+        </Typography>
+      </StyledDiv>
+    );
   }
 
   return content;

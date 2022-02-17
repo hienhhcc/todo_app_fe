@@ -8,7 +8,7 @@ import {
   selectAuthenticationUserInfo,
   selectIsAuthenticated,
 } from './selectors';
-import { loginThunk } from './slice';
+import { loginThunk, reset } from './slice';
 
 const useHooks = () => {
   const dispatch = useDispatch();
@@ -30,12 +30,17 @@ const useHooks = () => {
     [dispatch]
   );
 
-  //* Chuyển hướng người dùng về trang chủ nếu đăng nhập thành công
+  //* Reset state khi mount
   useEffect(() => {
-    if (status === EActionStatus.SUCCESS) {
+    dispatch(reset({}));
+  }, [dispatch]);
+
+  //* Nếu đã đăng nhập thì chuyển hướng người dùng về home
+  useEffect(() => {
+    if (isAuthenticated || status === EActionStatus.SUCCESS) {
       navigate('/');
     }
-  }, [navigate, status]);
+  }, [navigate, isAuthenticated, status]);
 
   return {
     handlers: { onSubmitLogin },

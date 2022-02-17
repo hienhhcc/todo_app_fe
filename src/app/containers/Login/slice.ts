@@ -17,39 +17,51 @@ const initialState: {
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
-  async (userCres: any) => {
-    const response = await axios.post(
-      'http://localhost:8000/user/auth/login',
-      userCres
-    );
-    console.log(response);
+  async (userCres: any, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/user/auth/login',
+        userCres
+      );
 
-    return response.data;
+      return response.data;
+    } catch (err: any) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
   }
 );
 
 export const authenticationSlice = createSlice({
   initialState,
   name: 'auth',
-  reducers: {},
+  reducers: {
+    reset(state, action) {
+      state.status = '';
+      state.error = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(loginThunk.pending, (state, action) => {
         state.status = EActionStatus.PENDING;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
-        console.log(action.payload);
+        const { user } = action.payload;
 
         state.status = EActionStatus.SUCCESS;
         state.isAuthenticated = true;
+        state.info = user;
       })
-      .addCase(loginThunk.rejected, (state, action) => {
+      .addCase(loginThunk.rejected, (state, action: any) => {
+        console.log(action);
+
         state.status = EActionStatus.FAILED;
-        state.error = action.error.message;
+        state.error = action.payload.message;
       });
   },
 });
 
-export const {} = authenticationSlice.actions;
+export const { reset } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

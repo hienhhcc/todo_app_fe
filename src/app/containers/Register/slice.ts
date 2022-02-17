@@ -27,7 +27,7 @@ export const registerThunk = createAsyncThunk(
 
 export const registerSlice = createSlice({
   initialState,
-  name: 'auth',
+  name: 'register',
   reducers: {
     reset(state, action: any) {
       state.status = '';
