@@ -1,4 +1,5 @@
 import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 import { StyledHeader } from './styles';
 import useHooks from './hooks';
 
@@ -11,7 +12,7 @@ const Todos = () => {
     <div>
       <StyledHeader>{userInfo.username}'s Todo List</StyledHeader>
       <TodoForm />
-      {/* TodoList */}
+      <TodoList />
     </div>
   );
 };

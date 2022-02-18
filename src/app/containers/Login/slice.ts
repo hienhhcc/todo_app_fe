@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { EActionStatus } from '../../../utils/constants';
+import { setUserInfoIntoLocalStorage } from '../../../utils/localStorage';
 
 const initialState: {
   status: string;
@@ -48,6 +49,8 @@ export const authenticationSlice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         const { user } = action.payload;
+
+        setUserInfoIntoLocalStorage(user);
 
         state.status = EActionStatus.SUCCESS;
         state.isAuthenticated = true;
