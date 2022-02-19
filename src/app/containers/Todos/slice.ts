@@ -27,9 +27,14 @@ export const checkCompleteTodoThunk = createAsyncThunk(
   async (todoId: any, { rejectWithValue }) => {
     const userInfo = getUserInfoFromLocalStorage();
 
+    console.log(userInfo._id, todoId);
+
     try {
-      const response = await axios.post(
-        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}/complete`
+      const response = await axios.patch(
+        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
+        {
+          isChecked: true,
+        }
       );
 
       return response.data;
@@ -46,8 +51,30 @@ export const unCheckCompleteTodoThunk = createAsyncThunk(
     const userInfo = getUserInfoFromLocalStorage();
 
     try {
-      const response = await axios.post(
-        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}/incomplete`
+      const response = await axios.patch(
+        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
+        {
+          isChecked: false,
+        }
+      );
+      console.log(response);
+
+      return response.data;
+    } catch (err: any) {
+      console.log(err);
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const removeTodoThunk = createAsyncThunk(
+  'todos/removetodo',
+  async (todoId: any, { rejectWithValue }) => {
+    const userInfo = getUserInfoFromLocalStorage();
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`
       );
 
       return response.data;
@@ -130,9 +157,25 @@ const todoSlice = createSlice({
         const checkedItemIndex = state.items.findIndex(
           (todoItem) => todoItem._id === action.payload.todo._id
         );
+        console.log(checkedItem, checkedItemIndex);
 
         checkedItem.status = 'COMPLETED';
         state.items[checkedItemIndex] = checkedItem;
+      })
+      .addCase(unCheckCompleteTodoThunk.fulfilled, (state, action: any) => {
+        const checkedItem = state.items.find(
+          (todoItem) => todoItem._id === action.payload.todo._id
+        )!;
+        const checkedItemIndex = state.items.findIndex(
+          (todoItem) => todoItem._id === action.payload.todo._id
+        );
+        checkedItem.status = 'INPROGRESS';
+        state.items[checkedItemIndex] = checkedItem;
+      })
+      .addCase(removeTodoThunk.fulfilled, (state, action: any) => {
+        state.items = state.items.filter(
+          (todoItem) => todoItem._id !== action.payload.todo._id
+        );
       });
   },
 });

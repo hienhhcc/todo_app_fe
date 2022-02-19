@@ -1,7 +1,11 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { checkCompleteTodoThunk } from '../../slice';
+import {
+  checkCompleteTodoThunk,
+  unCheckCompleteTodoThunk,
+  removeTodoThunk,
+} from '../../slice';
 
 const useHooks = () => {
   const dispatch = useDispatch();
@@ -13,9 +17,23 @@ const useHooks = () => {
     [dispatch]
   );
 
-  const onDeleteTodo = useCallback((todoId) => {}, []);
+  const onUnCheckCompleteTodo = useCallback(
+    (todoId) => {
+      dispatch(unCheckCompleteTodoThunk(todoId));
+    },
+    [dispatch]
+  );
 
-  return { handlers: { onCheckCompleteTodo, onDeleteTodo } };
+  const onDeleteTodo = useCallback(
+    (todoId) => {
+      dispatch(removeTodoThunk(todoId));
+    },
+    [dispatch]
+  );
+
+  return {
+    handlers: { onCheckCompleteTodo, onUnCheckCompleteTodo, onDeleteTodo },
+  };
 };
 
 export default useHooks;
