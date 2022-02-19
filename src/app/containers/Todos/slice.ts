@@ -2,7 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { EActionStatus } from '../../../utils/constants';
-import { getUserInfoFromLocalStorage } from '../../../utils/localStorage';
+import {
+  getAccessTokenFromLocalStorage,
+  getUserInfoFromLocalStorage,
+} from '../../../utils/localStorage';
 
 interface ITodo {
   _id: string;
@@ -26,15 +29,15 @@ export const checkCompleteTodoThunk = createAsyncThunk(
   'todos/checkcomplete',
   async (todoId: any, { rejectWithValue }) => {
     const userInfo = getUserInfoFromLocalStorage();
-
-    console.log(userInfo._id, todoId);
+    const accessToken = getAccessTokenFromLocalStorage();
 
     try {
       const response = await axios.patch(
         `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
         {
           isChecked: true,
-        }
+        },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
       return response.data;
@@ -49,13 +52,15 @@ export const unCheckCompleteTodoThunk = createAsyncThunk(
   'todos/uncheckcomplete',
   async (todoId: any, { rejectWithValue }) => {
     const userInfo = getUserInfoFromLocalStorage();
+    const accessToken = getAccessTokenFromLocalStorage();
 
     try {
       const response = await axios.patch(
         `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
         {
           isChecked: false,
-        }
+        },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       );
       console.log(response);
 
@@ -71,10 +76,12 @@ export const removeTodoThunk = createAsyncThunk(
   'todos/removetodo',
   async (todoId: any, { rejectWithValue }) => {
     const userInfo = getUserInfoFromLocalStorage();
+    const accessToken = getAccessTokenFromLocalStorage();
 
     try {
       const response = await axios.delete(
-        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`
+        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
       return response.data;
@@ -89,10 +96,12 @@ export const fetchTodosThunk = createAsyncThunk(
   'todos/fetchall',
   async (_: any, { rejectWithValue }) => {
     const userInfo = getUserInfoFromLocalStorage();
+    const accessToken = getAccessTokenFromLocalStorage();
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/user/${userInfo._id}/todos`
+        `http://localhost:8000/user/${userInfo._id}/todos`,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
       return response.data;
@@ -107,11 +116,13 @@ export const addTodoThunk = createAsyncThunk(
   'todos/add',
   async (todoName: any, { rejectWithValue }) => {
     const userInfo = getUserInfoFromLocalStorage();
+    const accessToken = getAccessTokenFromLocalStorage();
 
     try {
       const response = await axios.post(
         `http://localhost:8000/user/${userInfo._id}/todos`,
-        { todoName }
+        { todoName },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
       return response.data;
