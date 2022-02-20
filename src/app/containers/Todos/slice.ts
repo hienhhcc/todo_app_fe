@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { WEB_API } from '../../../configs/vars';
 
 import { EActionStatus } from '../../../utils/constants';
 import {
@@ -33,7 +34,7 @@ export const checkCompleteTodoThunk = createAsyncThunk(
 
     try {
       const response = await axios.patch(
-        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
+        `${WEB_API}/user/${userInfo._id}/todos/${todoId}`,
         {
           isChecked: true,
         },
@@ -56,7 +57,7 @@ export const unCheckCompleteTodoThunk = createAsyncThunk(
 
     try {
       const response = await axios.patch(
-        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
+        `${WEB_API}/user/${userInfo._id}/todos/${todoId}`,
         {
           isChecked: false,
         },
@@ -80,7 +81,7 @@ export const removeTodoThunk = createAsyncThunk(
 
     try {
       const response = await axios.delete(
-        `http://localhost:8000/user/${userInfo._id}/todos/${todoId}`,
+        `${WEB_API}/user/${userInfo._id}/todos/${todoId}`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
@@ -100,7 +101,7 @@ export const fetchTodosThunk = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/user/${userInfo._id}/todos`,
+        `${WEB_API}/user/${userInfo._id}/todos`,
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
@@ -120,7 +121,7 @@ export const addTodoThunk = createAsyncThunk(
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/user/${userInfo._id}/todos`,
+        `${WEB_API}/user/${userInfo._id}/todos`,
         { todoName },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );

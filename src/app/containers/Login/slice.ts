@@ -8,6 +8,7 @@ import {
   setAccessTokenIntoLocalStorage,
   setUserInfoIntoLocalStorage,
 } from '../../../utils/localStorage';
+import { WEB_API } from '../../../configs/vars';
 
 const initialState: {
   status: string;
@@ -25,10 +26,7 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (userCres: any, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        'http://localhost:8000/user/auth/login',
-        userCres
-      );
+      const response = await axios.post(`${WEB_API}/user/auth/login`, userCres);
 
       return response.data;
     } catch (err: any) {

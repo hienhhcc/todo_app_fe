@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { WEB_API } from '../../../configs/vars';
 
 import { EActionStatus } from '../../../utils/constants';
 
@@ -15,8 +16,11 @@ const initialState: {
 export const registerThunk = createAsyncThunk(
   'register/register',
   async (userCres: any) => {
+    console.log(WEB_API);
+    console.log(process.env);
+
     const response = await axios.post(
-      'http://localhost:8000/user/auth/register',
+      `${WEB_API}/user/auth/register`,
       userCres
     );
     console.log(response);
