@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { EActionStatus } from '../../../utils/constants';
 import {
+  removeAccessTokenFromLocalStorage,
+  removeUserInfoFromLocalStorage,
   setAccessTokenIntoLocalStorage,
   setUserInfoIntoLocalStorage,
 } from '../../../utils/localStorage';
@@ -44,6 +46,16 @@ export const authenticationSlice = createSlice({
       state.status = '';
       state.error = null;
     },
+    logout(state, action) {
+      console.log('In logout');
+      removeUserInfoFromLocalStorage();
+      removeAccessTokenFromLocalStorage();
+
+      state.isAuthenticated = false;
+      state.info = null;
+      state.status = '';
+      state.error = null;
+    },
   },
   extraReducers(builder) {
     builder
@@ -69,6 +81,6 @@ export const authenticationSlice = createSlice({
   },
 });
 
-export const { reset } = authenticationSlice.actions;
+export const { reset, logout } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

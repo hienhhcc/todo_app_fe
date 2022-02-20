@@ -44,6 +44,9 @@ const Header = () => {
                 <>
                   <StyledNavigationItem to="/">Home</StyledNavigationItem>
                   <StyledNavigationItem to="/todos">Todos</StyledNavigationItem>
+                  <StyledNavigationItem to="/logout">
+                    Logout
+                  </StyledNavigationItem>
                 </>
               )}
             </Stack>
